@@ -23,6 +23,7 @@ public class XposedServImpl implements XposedService {
     public String createModel(Xposed xposed) {
 
         String result ;
+
         try{
 
             xposedRepo.save(xposed);
@@ -42,12 +43,17 @@ public class XposedServImpl implements XposedService {
     public String deleteModel(Xposed xposed) {
 
         String result;
+
         try {
+
             xposed.setDelFlag("Y");
+
             xposedRepo.save(xposed);
 
             result = "Successfully Deleted";
+
         }catch (Exception ex){
+
             result = "Failed";
 
         }
@@ -60,13 +66,16 @@ public class XposedServImpl implements XposedService {
     public String updateModel(Xposed xposed) {
 
         String result = "";
+
         try{
 
             Xposed xposed1 = xposedRepo.getXposedById(xposed.getId());
+
             if (xposed1 != null){
 //                BeanUtilsBean.getInstance().getConvertUtils().register(false, false, 0);
 //                //BeanUtils.copyProperties(Destination, Source)
 //                BeanUtils.copyProperties(xposed1,xposed);
+                xposedRepo.save(xposed1);
             }
 
             result = "Successful";
@@ -82,10 +91,13 @@ public class XposedServImpl implements XposedService {
     public Xposed getModelById(Long id) {
 
         Xposed result = null;
+
         Optional<Xposed> tempXposed = xposedRepo.findById(id);
 
         if (tempXposed.isPresent()){
+
             Xposed xposed = tempXposed.get();
+
             result = xposed;
         }
 
@@ -99,6 +111,9 @@ public class XposedServImpl implements XposedService {
 
     @Override
     public List<Xposed> getListOfModels(String delFlag) {
-        return null;
+
+        List<Xposed> xposedList = xposedRepo.findByDelFlag(delFlag);
+
+        return xposedList;
     }
 }

@@ -14,6 +14,12 @@ public class Xposed extends AbstractEntity {
 
     private String location;
 
+    private Image profileImage;
+
+    private Image fullImage;
+
+    private Image portraitImage;
+
 
     public Xposed(){
 
@@ -50,4 +56,27 @@ public class Xposed extends AbstractEntity {
         return location;
     }
 
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public Image getFullImage() {
+        return fullImage;
+    }
+
+    public void setFullImage(Image fullImage) {
+        this.fullImage = fullImage;
+    }
+
+    public Image getPortraitImage() {
+        return portraitImage;
+    }
+
+    public void setPortraitImage(Image portraitImage) {
+        this.portraitImage = portraitImage;
+    }
 }

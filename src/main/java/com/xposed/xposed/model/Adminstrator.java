@@ -9,6 +9,8 @@ public class Adminstrator extends AbstractEntity {
 
     private String password;
 
+    private Image profileImage;
+
 
     public Adminstrator() {
     }
@@ -27,5 +29,13 @@ public class Adminstrator extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
     }
 }
