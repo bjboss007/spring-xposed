@@ -1,16 +1,19 @@
 package com.xposed.xposed.restController;
 
 
+import com.xposed.xposed.data.dto.FieldError;
+import com.xposed.xposed.data.dto.ResponseData;
 import com.xposed.xposed.model.Xposed;
 import com.xposed.xposed.service.XposedService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequestMapping("/xposed")
@@ -18,27 +21,48 @@ import java.util.List;
 public class XposedRest {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(XposedRest.class);
-
     @Autowired
     XposedService xposedService;
     @PostMapping("/add")
-    public String add(@RequestBody Xposed xposed){
+    public ResponseEntity<?> createOrUpdate(@RequestBody @Valid Xposed xposed, Errors errors){
+        ResponseEntity resp = null;
+        Xposed response = null;
+        ResponseData dt = new ResponseData();
+
+        try {
+            if (errors.hasErrors()){
+                List<FieldError> err_summary = errors.getFieldErrors().stream().map(f -> new FieldError(f.getField(),f.getDefaultMessage())).collect(Collectors.toList());
+                dt.setError(err_summary);
+                return ResponseEntity.badRequest().body(dt);
+            }
+            if (xposed.getId() != null){
+                Xposed xposed2 = xposedService.getModelById(xposed.getId());
+                CustomBeanUtilsBean.getInstance
+            }
+        }catch (){
+
+        }
+
+        if (xposed.getId() != null){
+            xposedService.updateModel(xposed);
+        }else {
+            xposedService.createModel(xposed);
+        }
 
         xposedService.createModel(xposed);
 
         return "Successfully Created";
     }
 
-    @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id){
-
-        Xposed xposed = xposedService.getModelById(id);
-
-        xposedService.createModel(xposed);
-
-        return "Successful Updated";
-    }
+//    @PostMapping("/{id}/update")
+//    public String update(@PathVariable Long id){
+//
+//        Xposed xposed = xposedService.getModelById(id);
+//
+//        xposedService.createModel(xposed);
+//
+//        return "Successful Updated";
+//    }
 
 
 

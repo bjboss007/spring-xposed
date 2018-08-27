@@ -14,6 +14,9 @@ public abstract class AbstractEntity implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Version
+    int version;
+
     private String delFlag="N";
 
     @Temporal(TemporalType.DATE)

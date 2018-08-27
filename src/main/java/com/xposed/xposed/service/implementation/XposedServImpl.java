@@ -3,7 +3,6 @@ package com.xposed.xposed.service.implementation;
 import com.xposed.xposed.model.Xposed;
 import com.xposed.xposed.repository.XposedRepo;
 import com.xposed.xposed.service.XposedService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

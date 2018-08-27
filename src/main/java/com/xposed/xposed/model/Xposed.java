@@ -1,6 +1,6 @@
 package com.xposed.xposed.model;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+
 
 @Entity
 public class Xposed extends AbstractEntity {
